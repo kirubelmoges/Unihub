@@ -38,7 +38,7 @@ DATABASES = {
 
 
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1','192.168.1.4','*',"172.17.39.140", '172.17.39.*','def456.ngrok.io']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1',]
 
 CHANNEL_LAYERS = {
     'default': {
@@ -153,9 +153,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "http://192.168.1.4:3000",
-    "http://172.17.39.140:3000",
-    "http://172.17.39.35:3000",]
+    ]
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = [
@@ -198,10 +196,6 @@ CSRF_COOKIE_SECURE = False
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
     "http://172.17.39.35:3000",
-    'http://127.0.0.1:3000',
-    "http://192.168.1.4:3000",
-    "http://172.17.39.35:3000",
-    "http://172.17.39.140:3000",
     
 ]
 
@@ -236,7 +230,7 @@ FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o755
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000 
 
 
-OPENAI_API_KEY = os.getenv('sk-72ca15e36475415d9169a97797200e85', '')
+OPENAI_API_KEY = os.getenv('your-open-ai-key')
 
 
 EXAM_AI_TEMP_DIR = os.path.join(MEDIA_ROOT, 'exam_ai_temp')
