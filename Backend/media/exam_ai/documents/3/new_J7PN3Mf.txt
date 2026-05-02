@@ -1,0 +1,24 @@
+1. What is the capital of France?
+Answer: Paris
+
+2. What is 2 + 2?
+Answer: 4
+
+3. Which planet is known as the Red Planet?
+A) Venus
+B) Mars
+C) Jupiter
+D) Saturn
+Answer: B) Mars
+
+4. True or False: The Earth is flat.
+Answer: False
+
+5. Calculate the area of a circle with radius 5 cm. (Use π = 3.14)
+Answer: 78.5 cm²
+
+6. Explain the process of photosynthesis in one paragraph.
+Answer: Photosynthesis is the process by which plants convert light energy into chemical energy...
+
+7. Define Newton's First Law of Motion.
+Answer: An object at rest stays at rest and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force.

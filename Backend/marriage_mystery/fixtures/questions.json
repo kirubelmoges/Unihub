@@ -1,0 +1,1842 @@
+[
+  {
+    "model": "marriage_mystery.category",
+    "pk": 1,
+    "fields": {
+      "name": "Personal Information",
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.category",
+    "pk": 2,
+    "fields": {
+      "name": "Personality and Energy",
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.category",
+    "pk": 3,
+    "fields": {
+      "name": "Values and Lifestyle",
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.category",
+    "pk": 4,
+    "fields": {
+      "name": "Romantic Compatibility",
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.category",
+    "pk": 5,
+    "fields": {
+      "name": "Deep Compatibility",
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 1,
+    "fields": {
+      "category": 1,
+      "text": "What is your gender identity?",
+      "facial_feature": "detected_gender",
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 1,
+    "fields": {
+      "question": 1,
+      "text": "Male",
+      "value": 0,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 2,
+    "fields": {
+      "question": 1,
+      "text": "Female",
+      "value": 100,
+      "order": 2
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 2,
+    "fields": {
+      "category": 2,
+      "text": "How spontaneous are you?",
+      "facial_feature": "eyebrow_thickness",
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 3,
+    "fields": {
+      "question": 2,
+      "text": "I need everything planned well in advance",
+      "value": 20,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 4,
+    "fields": {
+      "question": 2,
+      "text": "I prefer some structure but can be flexible",
+      "value": 40,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 5,
+    "fields": {
+      "question": 2,
+      "text": "I enjoy a mix of planning and spontaneity",
+      "value": 60,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 6,
+    "fields": {
+      "question": 2,
+      "text": "I lean toward spontaneous decisions",
+      "value": 80,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 7,
+    "fields": {
+      "question": 2,
+      "text": "I will book a flight tomorrow adventure awaits",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 3,
+    "fields": {
+      "category": 2,
+      "text": "What is your social energy level?",
+      "facial_feature": "face_shape",
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 8,
+    "fields": {
+      "question": 3,
+      "text": "I recharge alone too much socializing drains me",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 9,
+    "fields": {
+      "question": 3,
+      "text": "I prefer small intimate gatherings",
+      "value": 35,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 10,
+    "fields": {
+      "question": 3,
+      "text": "I enjoy a healthy balance of social and solo time",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 11,
+    "fields": {
+      "question": 3,
+      "text": "I love being around people most of the time",
+      "value": 75,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 12,
+    "fields": {
+      "question": 3,
+      "text": "I thrive in large social settings the more the merrier",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 4,
+    "fields": {
+      "category": 2,
+      "text": "What is your primary love language?",
+      "facial_feature": "lip_size",
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 13,
+    "fields": {
+      "question": 4,
+      "text": "Words of Affirmation",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 14,
+    "fields": {
+      "question": 4,
+      "text": "Acts of Service",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 15,
+    "fields": {
+      "question": 4,
+      "text": "Receiving Gifts",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 16,
+    "fields": {
+      "question": 4,
+      "text": "Quality Time",
+      "value": 75,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 17,
+    "fields": {
+      "question": 4,
+      "text": "Physical Touch",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 5,
+    "fields": {
+      "category": 2,
+      "text": "How important is family to you?",
+      "facial_feature": "chin_prominence",
+      "order": 5
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 18,
+    "fields": {
+      "question": 5,
+      "text": "I am very independent family is not central to my life",
+      "value": 15,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 19,
+    "fields": {
+      "question": 5,
+      "text": "I love my family but keep healthy boundaries",
+      "value": 40,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 20,
+    "fields": {
+      "question": 5,
+      "text": "Family is important and I stay fairly connected",
+      "value": 60,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 21,
+    "fields": {
+      "question": 5,
+      "text": "Family comes first in most of my decisions",
+      "value": 80,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 22,
+    "fields": {
+      "question": 5,
+      "text": "Family is everything I would relocate to be near them",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 6,
+    "fields": {
+      "category": 2,
+      "text": "How career driven are you?",
+      "facial_feature": "eye_size",
+      "order": 6
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 23,
+    "fields": {
+      "question": 6,
+      "text": "Work to live I keep it minimal and easy",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 24,
+    "fields": {
+      "question": 6,
+      "text": "I enjoy my work but it does not define me",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 25,
+    "fields": {
+      "question": 6,
+      "text": "Career is important but balanced with personal life",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 26,
+    "fields": {
+      "question": 6,
+      "text": "I am highly career driven and goal oriented",
+      "value": 75,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 27,
+    "fields": {
+      "question": 6,
+      "text": "I am building something great career is my top priority",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 7,
+    "fields": {
+      "category": 3,
+      "text": "How do you manage stress?",
+      "facial_feature": "forehead_lines",
+      "order": 7
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 28,
+    "fields": {
+      "question": 7,
+      "text": "Exercise and physical activity",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 29,
+    "fields": {
+      "question": 7,
+      "text": "Meditation or mindfulness",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 30,
+    "fields": {
+      "question": 7,
+      "text": "Talking it through with friends or family",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 31,
+    "fields": {
+      "question": 7,
+      "text": "Creative outlets art music writing",
+      "value": 75,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 32,
+    "fields": {
+      "question": 7,
+      "text": "I tend to bottle stress until it boils over",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 8,
+    "fields": {
+      "category": 3,
+      "text": "How do you communicate emotions?",
+      "facial_feature": "lip_color",
+      "order": 8
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 33,
+    "fields": {
+      "question": 8,
+      "text": "I rarely share feelings actions speak louder",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 34,
+    "fields": {
+      "question": 8,
+      "text": "I share feelings when asked not spontaneously",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 35,
+    "fields": {
+      "question": 8,
+      "text": "I am fairly open but take time to open up fully",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 36,
+    "fields": {
+      "question": 8,
+      "text": "I share feelings openly and regularly",
+      "value": 80,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 37,
+    "fields": {
+      "question": 8,
+      "text": "Emotional transparency is core to who I am",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 9,
+    "fields": {
+      "category": 3,
+      "text": "What is your humor style?",
+      "facial_feature": "eye_size",
+      "order": 9
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 38,
+    "fields": {
+      "question": 9,
+      "text": "Dry and sarcastic",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 39,
+    "fields": {
+      "question": 9,
+      "text": "Witty and clever",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 40,
+    "fields": {
+      "question": 9,
+      "text": "Observational and relatable",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 41,
+    "fields": {
+      "question": 9,
+      "text": "Goofy and silly",
+      "value": 75,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 42,
+    "fields": {
+      "question": 9,
+      "text": "Everything is funny I laugh at everything",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 10,
+    "fields": {
+      "category": 3,
+      "text": "How tidy are you?",
+      "facial_feature": "hair_type",
+      "order": 10
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 43,
+    "fields": {
+      "question": 10,
+      "text": "I am extremely neat a place for everything",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 44,
+    "fields": {
+      "question": 10,
+      "text": "Fairly organized with occasional clutter",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 45,
+    "fields": {
+      "question": 10,
+      "text": "Organized chaos I know where everything is",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 46,
+    "fields": {
+      "question": 10,
+      "text": "A bit messy but I clean when it matters",
+      "value": 75,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 47,
+    "fields": {
+      "question": 10,
+      "text": "I live freely tidiness is not my priority",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 11,
+    "fields": {
+      "category": 3,
+      "text": "What is your activity level?",
+      "facial_feature": "facial_fullness",
+      "order": 11
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 48,
+    "fields": {
+      "question": 11,
+      "text": "Very sedentary I prefer restful activities",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 49,
+    "fields": {
+      "question": 11,
+      "text": "Light activity walks and gentle movement",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 50,
+    "fields": {
+      "question": 11,
+      "text": "Moderately active gym a few times per week",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 51,
+    "fields": {
+      "question": 11,
+      "text": "Very active I work out most days",
+      "value": 75,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 52,
+    "fields": {
+      "question": 11,
+      "text": "Athlete level fitness is a core identity",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 12,
+    "fields": {
+      "category": 3,
+      "text": "Are you a morning person or night owl?",
+      "facial_feature": "skin_tone",
+      "order": 12
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 53,
+    "fields": {
+      "question": 12,
+      "text": "Definitely a morning person I am up at dawn",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 54,
+    "fields": {
+      "question": 12,
+      "text": "More of a morning person than night",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 55,
+    "fields": {
+      "question": 12,
+      "text": "I am flexible can do both",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 56,
+    "fields": {
+      "question": 12,
+      "text": "More of a night person than morning",
+      "value": 75,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 57,
+    "fields": {
+      "question": 12,
+      "text": "Definitely a night owl I come alive after dark",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 13,
+    "fields": {
+      "category": 4,
+      "text": "What is your dietary preference?",
+      "facial_feature": "nose_length",
+      "order": 13
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 58,
+    "fields": {
+      "question": 13,
+      "text": "I eat everything no restrictions",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 59,
+    "fields": {
+      "question": 13,
+      "text": "I prefer healthy balanced meals",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 60,
+    "fields": {
+      "question": 13,
+      "text": "I am vegetarian or mostly plant based",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 61,
+    "fields": {
+      "question": 13,
+      "text": "I follow a specific diet keto paleo etc",
+      "value": 75,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 62,
+    "fields": {
+      "question": 13,
+      "text": "I am vegan ethical eating is important to me",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 14,
+    "fields": {
+      "category": 4,
+      "text": "What is your travel style?",
+      "facial_feature": "beard_fullness",
+      "order": 14
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 63,
+    "fields": {
+      "question": 14,
+      "text": "Luxury traveler hotels and comfort",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 64,
+    "fields": {
+      "question": 14,
+      "text": "Planned tours and organized trips",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 65,
+    "fields": {
+      "question": 14,
+      "text": "Mix of planning and spontaneity",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 66,
+    "fields": {
+      "question": 14,
+      "text": "Backpacker budget and adventure",
+      "value": 75,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 67,
+    "fields": {
+      "question": 14,
+      "text": "Off the beaten path no plans just go",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 15,
+    "fields": {
+      "category": 4,
+      "text": "How open are you to constructive feedback?",
+      "facial_feature": "ear_visibility",
+      "order": 15
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 68,
+    "fields": {
+      "question": 15,
+      "text": "I struggle to accept criticism",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 69,
+    "fields": {
+      "question": 15,
+      "text": "I accept it but take time to process",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 70,
+    "fields": {
+      "question": 15,
+      "text": "I am open if delivered kindly",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 71,
+    "fields": {
+      "question": 15,
+      "text": "I welcome feedback it helps me grow",
+      "value": 80,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 72,
+    "fields": {
+      "question": 15,
+      "text": "I actively seek out feedback",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 16,
+    "fields": {
+      "category": 4,
+      "text": "How do you express your sense of humor?",
+      "facial_feature": "smile_intensity",
+      "order": 16
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 73,
+    "fields": {
+      "question": 16,
+      "text": "I am the quiet observer who laughs internally",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 74,
+    "fields": {
+      "question": 16,
+      "text": "I have a subtle witty sense of humor",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 75,
+    "fields": {
+      "question": 16,
+      "text": "I laugh easily and often",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 76,
+    "fields": {
+      "question": 16,
+      "text": "I am the one making jokes in any situation",
+      "value": 80,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 77,
+    "fields": {
+      "question": 16,
+      "text": "I am hilarious and love making others laugh",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 17,
+    "fields": {
+      "category": 4,
+      "text": "How do you handle conflict in relationships?",
+      "facial_feature": "perceived_confidence",
+      "order": 17
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 78,
+    "fields": {
+      "question": 17,
+      "text": "I avoid conflict at all costs",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 79,
+    "fields": {
+      "question": 17,
+      "text": "I need time to process before discussing",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 80,
+    "fields": {
+      "question": 17,
+      "text": "I prefer to talk it out immediately",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 81,
+    "fields": {
+      "question": 17,
+      "text": "I am direct but compassionate",
+      "value": 75,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 82,
+    "fields": {
+      "question": 17,
+      "text": "I see conflict as an opportunity to grow closer",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 18,
+    "fields": {
+      "category": 5,
+      "text": "What is the most important quality in a partner?",
+      "facial_feature": "perceived_kindness",
+      "order": 18
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 83,
+    "fields": {
+      "question": 18,
+      "text": "Physical attraction",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 84,
+    "fields": {
+      "question": 18,
+      "text": "Financial stability",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 85,
+    "fields": {
+      "question": 18,
+      "text": "Shared interests and hobbies",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 86,
+    "fields": {
+      "question": 18,
+      "text": "Emotional intelligence and kindness",
+      "value": 80,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 87,
+    "fields": {
+      "question": 18,
+      "text": "Loyalty and trustworthiness",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 19,
+    "fields": {
+      "category": 5,
+      "text": "How romantic are you?",
+      "facial_feature": "eyebrow_arch",
+      "order": 19
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 88,
+    "fields": {
+      "question": 19,
+      "text": "Not very romantic I am practical",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 89,
+    "fields": {
+      "question": 19,
+      "text": "I appreciate romance but do not initiate",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 90,
+    "fields": {
+      "question": 19,
+      "text": "I enjoy romantic gestures occasionally",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 91,
+    "fields": {
+      "question": 19,
+      "text": "I am romantic and enjoy planning surprises",
+      "value": 80,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 92,
+    "fields": {
+      "question": 19,
+      "text": "I am a hopeless romantic love grand gestures",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 20,
+    "fields": {
+      "category": 5,
+      "text": "How do you make important decisions?",
+      "facial_feature": "eye_spacing",
+      "order": 20
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 93,
+    "fields": {
+      "question": 20,
+      "text": "I make decisions quickly without overthinking",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 94,
+    "fields": {
+      "question": 20,
+      "text": "I rely on logic and analysis",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 95,
+    "fields": {
+      "question": 20,
+      "text": "I weigh pros and cons carefully",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 96,
+    "fields": {
+      "question": 20,
+      "text": "I consult others before deciding",
+      "value": 75,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 97,
+    "fields": {
+      "question": 20,
+      "text": "I follow my intuition and heart",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 21,
+    "fields": {
+      "category": 5,
+      "text": "How do you communicate in relationships?",
+      "facial_feature": "jaw_definition",
+      "order": 21
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 98,
+    "fields": {
+      "question": 21,
+      "text": "I am reserved and do not share much",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 99,
+    "fields": {
+      "question": 21,
+      "text": "I communicate when necessary",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 100,
+    "fields": {
+      "question": 21,
+      "text": "I am open but need encouragement",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 101,
+    "fields": {
+      "question": 21,
+      "text": "I am direct and clear in my communication",
+      "value": 80,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 102,
+    "fields": {
+      "question": 21,
+      "text": "I am an open book I share everything",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 22,
+    "fields": {
+      "category": 5,
+      "text": "How important is financial stability to you?",
+      "facial_feature": "hair_color",
+      "order": 22
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 103,
+    "fields": {
+      "question": 22,
+      "text": "Money is not important to me",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 104,
+    "fields": {
+      "question": 22,
+      "text": "I prefer a simple frugal lifestyle",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 105,
+    "fields": {
+      "question": 22,
+      "text": "Financial stability is important but not everything",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 106,
+    "fields": {
+      "question": 22,
+      "text": "I value financial security and planning",
+      "value": 80,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 107,
+    "fields": {
+      "question": 22,
+      "text": "Financial success is a top priority for me",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 23,
+    "fields": {
+      "category": 4,
+      "text": "What is your ideal date night?",
+      "facial_feature": "lip_size",
+      "order": 23
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 108,
+    "fields": {
+      "question": 23,
+      "text": "Netflix and chill at home",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 109,
+    "fields": {
+      "question": 23,
+      "text": "Dinner at a nice restaurant",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 110,
+    "fields": {
+      "question": 23,
+      "text": "Outdoor adventure or activity",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 111,
+    "fields": {
+      "question": 23,
+      "text": "Cultural event concert theater museum",
+      "value": 75,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 112,
+    "fields": {
+      "question": 23,
+      "text": "Surprise adventure anywhere anytime",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 24,
+    "fields": {
+      "category": 5,
+      "text": "What are your views on marriage?",
+      "facial_feature": "chin_prominence",
+      "order": 24
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 113,
+    "fields": {
+      "question": 24,
+      "text": "I do not believe in marriage",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 114,
+    "fields": {
+      "question": 24,
+      "text": "I am open to it but not a priority",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 115,
+    "fields": {
+      "question": 24,
+      "text": "I would like to get married someday",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 116,
+    "fields": {
+      "question": 24,
+      "text": "Marriage is very important to me",
+      "value": 80,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 117,
+    "fields": {
+      "question": 24,
+      "text": "I dream of a traditional marriage and family",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 25,
+    "fields": {
+      "category": 5,
+      "text": "How spiritual or religious are you?",
+      "facial_feature": "perceived_confidence",
+      "order": 25
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 118,
+    "fields": {
+      "question": 25,
+      "text": "Not spiritual or religious at all",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 119,
+    "fields": {
+      "question": 25,
+      "text": "Spiritual but not religious",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 120,
+    "fields": {
+      "question": 25,
+      "text": "Somewhat religious",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 121,
+    "fields": {
+      "question": 25,
+      "text": "Devout and practicing",
+      "value": 80,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 122,
+    "fields": {
+      "question": 25,
+      "text": "My faith is central to my life",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 26,
+    "fields": {
+      "category": 5,
+      "text": "Do you want children?",
+      "facial_feature": "perceived_kindness",
+      "order": 26
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 123,
+    "fields": {
+      "question": 26,
+      "text": "I definitely do not want children",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 124,
+    "fields": {
+      "question": 26,
+      "text": "Probably not but open to discussion",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 125,
+    "fields": {
+      "question": 26,
+      "text": "I am unsure it depends",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 126,
+    "fields": {
+      "question": 26,
+      "text": "I would like to have children",
+      "value": 80,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 127,
+    "fields": {
+      "question": 26,
+      "text": "I definitely want children it is essential",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 27,
+    "fields": {
+      "category": 4,
+      "text": "How quickly do you say I love you?",
+      "facial_feature": "smile_intensity",
+      "order": 27
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 128,
+    "fields": {
+      "question": 27,
+      "text": "It takes me a very long time",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 129,
+    "fields": {
+      "question": 27,
+      "text": "I wait until I am completely sure",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 130,
+    "fields": {
+      "question": 27,
+      "text": "I say it when it feels right",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 131,
+    "fields": {
+      "question": 27,
+      "text": "I am comfortable saying it early",
+      "value": 80,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 132,
+    "fields": {
+      "question": 27,
+      "text": "I fall fast and say it quickly",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 28,
+    "fields": {
+      "category": 5,
+      "text": "What would be a dealbreaker in a relationship?",
+      "facial_feature": "face_shape",
+      "order": 28
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 133,
+    "fields": {
+      "question": 28,
+      "text": "Dishonesty or lying",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 134,
+    "fields": {
+      "question": 28,
+      "text": "Disrespect or lack of kindness",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 135,
+    "fields": {
+      "question": 28,
+      "text": "Different life goals or values",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 136,
+    "fields": {
+      "question": 28,
+      "text": "Lack of ambition or motivation",
+      "value": 75,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 137,
+    "fields": {
+      "question": 28,
+      "text": "Emotional unavailability",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 29,
+    "fields": {
+      "category": 4,
+      "text": "How much alone time do you need?",
+      "facial_feature": "facial_fullness",
+      "order": 29
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 138,
+    "fields": {
+      "question": 29,
+      "text": "I prefer to be alone most of the time",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 139,
+    "fields": {
+      "question": 29,
+      "text": "I need significant alone time",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 140,
+    "fields": {
+      "question": 29,
+      "text": "A healthy balance of alone and together time",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 141,
+    "fields": {
+      "question": 29,
+      "text": "I enjoy some alone time but prefer company",
+      "value": 75,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 142,
+    "fields": {
+      "question": 29,
+      "text": "I love being together all the time",
+      "value": 100,
+      "order": 5
+    }
+  },
+
+  {
+    "model": "marriage_mystery.question",
+    "pk": 30,
+    "fields": {
+      "category": 5,
+      "text": "What is your vision for the future together?",
+      "facial_feature": "forehead_lines",
+      "order": 30
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 143,
+    "fields": {
+      "question": 30,
+      "text": "Living independently pursuing individual goals",
+      "value": 10,
+      "order": 1
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 144,
+    "fields": {
+      "question": 30,
+      "text": "Building a career together",
+      "value": 30,
+      "order": 2
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 145,
+    "fields": {
+      "question": 30,
+      "text": "Traveling and exploring the world",
+      "value": 55,
+      "order": 3
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 146,
+    "fields": {
+      "question": 30,
+      "text": "Starting a family and settling down",
+      "value": 80,
+      "order": 4
+    }
+  },
+  {
+    "model": "marriage_mystery.answeroption",
+    "pk": 147,
+    "fields": {
+      "question": 30,
+      "text": "Building a legacy together",
+      "value": 100,
+      "order": 5
+    }
+  }
+]

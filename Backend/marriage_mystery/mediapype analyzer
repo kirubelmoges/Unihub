@@ -1,0 +1,539 @@
+import cv2
+import numpy as np
+import tempfile
+import os
+from scipy.spatial import distance as dist
+
+# Try to import mediapipe, but don't fail if missing
+try:
+    import mediapipe as mp
+    HAS_MEDIAPIPE = True
+    print(f"✅ MediaPipe version: {mp.__version__} - using advanced analysis")
+except ImportError:
+    HAS_MEDIAPIPE = False
+    print(f"⚠️ MediaPipe not available - using OpenCV fallback")
+
+# MediaPipe landmark indices (only used if MediaPipe is available)
+LEFT_EYE = [362, 385, 387, 263, 373, 380]
+RIGHT_EYE = [33, 160, 158, 133, 153, 144]
+LEFT_EYEBROW = [276, 283, 282, 295, 285]
+RIGHT_EYEBROW = [46, 53, 52, 65, 55]
+NOSE_TIP = 4
+NOSE_BRIDGE = 6
+NOSE_LEFT = 98
+NOSE_RIGHT = 327
+UPPER_LIP = [61, 185, 40, 39, 37, 0, 267, 269, 270, 409, 291]
+LOWER_LIP = [61, 146, 91, 181, 84, 17, 314, 405, 321, 375, 291]
+CHIN = 152
+FOREHEAD = 10
+JAW_LEFT = 234
+JAW_RIGHT = 454
+LEFT_CHEEK = 50
+RIGHT_CHEEK = 280
+LEFT_EAR = 234
+RIGHT_EAR = 454
+
+def _eye_aspect_ratio(eye_points):
+    A = dist.euclidean(eye_points[1], eye_points[5])
+    B = dist.euclidean(eye_points[2], eye_points[4])
+    C = dist.euclidean(eye_points[0], eye_points[3])
+    return (A + B) / (2.0 * C) if C > 0 else 0
+
+def _normalize(val, min_v, max_v):
+    return float(np.clip((val - min_v) / (max_v - min_v) * 100, 0, 100))
+
+class FacialAnalyzer:
+    def __init__(self):
+        self.has_mediapipe = HAS_MEDIAPIPE
+        
+        if self.has_mediapipe:
+            self.mp_face_mesh = mp.solutions.face_mesh
+            self.mp_drawing = mp.solutions.drawing_utils
+            print("   MediaPipe initialized")
+        else:
+            # OpenCV face detector
+            self.face_cascade = cv2.CascadeClassifier(
+                cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
+            )
+            self.eye_cascade = cv2.CascadeClassifier(
+                cv2.data.haarcascades + 'haarcascade_eye.xml'
+            )
+            print("   OpenCV face detector initialized")
+        
+    def analyze(self, image_file, session_id):
+        if self.has_mediapipe:
+            return self._analyze_with_mediapipe(image_file, session_id)
+        else:
+            return self._analyze_with_opencv(image_file, session_id)
+    
+    def _analyze_with_mediapipe(self, image_file, session_id):
+        tmp_path = None
+        try:
+            with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as tmp:
+                for chunk in image_file.chunks():
+                    tmp.write(chunk)
+                tmp_path = tmp.name
+            
+            img = cv2.imread(tmp_path)
+            if img is None:
+                return None, None, 0, 'Could not decode image'
+            
+            img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            h, w = img.shape[:2]
+            
+            with self.mp_face_mesh.FaceMesh(
+                static_image_mode=True,
+                max_num_faces=1,
+                refine_landmarks=True,
+                min_detection_confidence=0.5
+            ) as face_mesh:
+                results = face_mesh.process(img_rgb)
+            
+            if not results.multi_face_landmarks:
+                return None, None, 0, 'No face detected in the photograph'
+            
+            landmarks = results.multi_face_landmarks[0].landmark
+            lm = [(int(l.x * w), int(l.y * h)) for l in landmarks]
+            
+            features = self._extract_features_mediapipe(img, lm, w, h)
+            gender, confidence = self._detect_gender(features)
+            
+            return features, gender, confidence, None
+            
+        except Exception as e:
+            return None, None, 0, str(e)
+        
+        finally:
+            if tmp_path and os.path.exists(tmp_path):
+                os.unlink(tmp_path)
+    
+    def _analyze_with_opencv(self, image_file, session_id):
+        tmp_path = None
+        try:
+            with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as tmp:
+                for chunk in image_file.chunks():
+                    tmp.write(chunk)
+                tmp_path = tmp.name
+            
+            img = cv2.imread(tmp_path)
+            if img is None:
+                return None, None, 0, 'Could not decode image'
+            
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            faces = self.face_cascade.detectMultiScale(gray, 1.1, 5, minSize=(100, 100))
+            
+            if len(faces) == 0:
+                return None, None, 0, 'No face detected in the photograph'
+            
+            x, y, w, h = faces[0]
+            face_roi = gray[y:y+h, x:x+w]
+            face_color = img[y:y+h, x:x+w]
+            
+            features = self._extract_features_opencv(face_roi, face_color, w, h)
+            gender, confidence = self._detect_gender(features)
+            
+            return features, gender, confidence, None
+            
+        except Exception as e:
+            return None, None, 0, str(e)
+        
+        finally:
+            if tmp_path and os.path.exists(tmp_path):
+                os.unlink(tmp_path)
+    
+    def _extract_features_mediapipe(self, img, lm, w, h):
+        """Extract features using MediaPipe landmarks"""
+        features = {
+            'eye_size': self._eye_size(lm, w, h),
+            'eyebrow_thickness': self._eyebrow_thickness(lm, h),
+            'nose_length': self._nose_length(lm, h),
+            'nose_width': self._nose_width(lm, w),
+            'lip_size': self._lip_size(lm, h),
+            'chin_prominence': self._chin_prominence(lm, h),
+            'face_shape': self._face_shape(lm, w, h),
+            'facial_fullness': self._facial_fullness(lm, w, h),
+            'skin_tone': self._skin_tone(img, lm),
+            'lip_color': self._lip_color(img, lm),
+            'hair_color': self._hair_color(img, lm, h),
+            'forehead_lines': self._forehead_lines(img, lm),
+            'beard_fullness': self._beard_fullness(img, lm),
+            'hair_type': self._hair_type(img, lm, h),
+            'ear_visibility': self._ear_visibility(img, lm, w),
+            'smile_intensity': self._smile_intensity(lm, w),
+            'perceived_confidence': self._perceived_confidence(lm, h),
+            'perceived_kindness': self._perceived_kindness(lm),
+            'eyebrow_arch': self._eyebrow_arch(lm, h),
+            'eye_spacing': self._eye_spacing(lm, w),
+            'jaw_definition': self._jaw_definition(lm, w),
+        }
+        return features
+    
+    def _extract_features_opencv(self, gray, color, w, h):
+        """Extract features using OpenCV only"""
+        # Eye detection
+        eyes = self.eye_cascade.detectMultiScale(gray, 1.1, 5)
+        if len(eyes) >= 2:
+            avg_area = np.mean([e[2] * e[3] for e in eyes[:2]])
+            eye_size = np.clip(avg_area / (w * h) * 400, 20, 80)
+        else:
+            eye_size = 50
+        
+        # Eyebrow thickness (edges in upper face)
+        brow_region = gray[:h//3, :]
+        if brow_region.size > 0:
+            edges = cv2.Canny(brow_region, 50, 150)
+            eyebrow_thickness = np.clip(np.sum(edges) / (edges.size + 1) * 5, 20, 80)
+        else:
+            eyebrow_thickness = 50
+        
+        # Nose length (vertical gradient)
+        nose_region = gray[h//3:2*h//3, w//3:2*w//3]
+        if nose_region.size > 0:
+            grad_y = cv2.Sobel(nose_region, cv2.CV_64F, 0, 1, ksize=3)
+            nose_length = np.clip(np.mean(np.abs(grad_y)) * 3, 30, 80)
+        else:
+            nose_length = 50
+        
+        # Nose width
+        if nose_region.size > 0:
+            grad_x = cv2.Sobel(nose_region, cv2.CV_64F, 1, 0, ksize=3)
+            nose_width = np.clip(np.mean(np.abs(grad_x)) * 3, 30, 80)
+        else:
+            nose_width = 50
+        
+        # Lip size
+        mouth_region = gray[2*h//3:3*h//4, w//4:3*w//4]
+        if mouth_region.size > 0:
+            lip_size = np.clip(mouth_region.shape[0] / h * 100, 20, 70)
+        else:
+            lip_size = 50
+        
+        # Chin prominence
+        chin_region = gray[-h//4:, w//4:3*w//4]
+        if chin_region.size > 0:
+            edges = cv2.Canny(chin_region, 50, 150)
+            chin_prominence = np.clip(np.sum(edges) / (edges.size + 1) * 10, 20, 80)
+        else:
+            chin_prominence = 50
+        
+        # Face shape
+        face_ratio = w / h
+        if face_ratio > 0.9:
+            face_shape = 70
+        elif face_ratio > 0.75:
+            face_shape = 50
+        else:
+            face_shape = 30
+        
+        # Facial fullness
+        mean_intensity = np.mean(gray)
+        facial_fullness = 100 - (mean_intensity / 255 * 100)
+        facial_fullness = np.clip(facial_fullness, 20, 80)
+        
+        # Beard fullness (lower face)
+        lower_face = gray[2*h//3:, :]
+        if lower_face.size > 0:
+            beard_fullness = 100 - (np.mean(lower_face) / 255 * 100)
+            beard_fullness = np.clip(beard_fullness, 10, 90)
+        else:
+            beard_fullness = 30
+        
+        # Jaw definition
+        jaw_region = gray[3*h//4:, w//4:3*w//4]
+        if jaw_region.size > 0:
+            edges = cv2.Canny(jaw_region, 50, 150)
+            jaw_definition = np.clip(np.sum(edges) / (edges.size + 1) * 10, 20, 80)
+        else:
+            jaw_definition = 50
+        
+        # Smile intensity
+        if mouth_region.size > 0:
+            edges = cv2.Canny(mouth_region, 50, 150)
+            smile_intensity = np.clip(np.sum(edges) / (edges.size + 1) * 5, 20, 80)
+        else:
+            smile_intensity = 50
+        
+        return {
+            'eye_size': eye_size,
+            'eyebrow_thickness': eyebrow_thickness,
+            'nose_length': nose_length,
+            'nose_width': nose_width,
+            'lip_size': lip_size,
+            'chin_prominence': chin_prominence,
+            'face_shape': face_shape,
+            'facial_fullness': facial_fullness,
+            'skin_tone': 50,
+            'lip_color': 50,
+            'hair_color': 50,
+            'forehead_lines': 20,
+            'beard_fullness': beard_fullness,
+            'hair_type': 50,
+            'ear_visibility': 50,
+            'smile_intensity': smile_intensity,
+            'perceived_confidence': 50,
+            'perceived_kindness': smile_intensity,
+            'eyebrow_arch': eyebrow_thickness,
+            'eye_spacing': 50,
+            'jaw_definition': jaw_definition,
+        }
+    
+    def _detect_gender(self, features):
+        beard = features.get('beard_fullness', 0)
+        jaw = features.get('jaw_definition', 50)
+        brows = features.get('eyebrow_thickness', 50)
+        
+        score = 50
+        if beard > 50:
+            score += 25
+        if jaw > 55:
+            score += 15
+        if brows > 55:
+            score += 10
+        
+        if score > 65:
+            return 'M', 0.8
+        elif score < 35:
+            return 'F', 0.8
+        else:
+            return 'M' if beard > 40 else 'F', 0.65
+    
+    # MediaPipe feature extraction methods (keep your existing ones)
+    def _eye_size(self, lm, w, h):
+        left = [lm[i] for i in LEFT_EYE]
+        right = [lm[i] for i in RIGHT_EYE]
+        ear_l = _eye_aspect_ratio(left)
+        ear_r = _eye_aspect_ratio(right)
+        return _normalize((ear_l + ear_r) / 2, 0.15, 0.45)
+    
+    def _eyebrow_thickness(self, lm, h):
+        try:
+            lb_top = min(lm[i][1] for i in LEFT_EYEBROW)
+            lb_bot = max(lm[i][1] for i in LEFT_EYEBROW)
+            return _normalize((lb_bot - lb_top) / h * 100, 0.5, 3.0)
+        except:
+            return 50.0
+    
+    def _nose_length(self, lm, h):
+        try:
+            length = abs(lm[NOSE_TIP][1] - lm[NOSE_BRIDGE][1]) / h * 100
+            return _normalize(length, 5, 20)
+        except:
+            return 50.0
+    
+    def _nose_width(self, lm, w):
+        try:
+            width = abs(lm[NOSE_RIGHT][0] - lm[NOSE_LEFT][0]) / w * 100
+            return _normalize(width, 5, 25)
+        except:
+            return 50.0
+    
+    def _lip_size(self, lm, h):
+        try:
+            top_y = min(lm[i][1] for i in UPPER_LIP)
+            bot_y = max(lm[i][1] for i in LOWER_LIP)
+            size = (bot_y - top_y) / h * 100
+            return _normalize(size, 1.5, 8)
+        except:
+            return 50.0
+    
+    def _chin_prominence(self, lm, h):
+        try:
+            chin_y = lm[CHIN][1]
+            forehead_y = lm[FOREHEAD][1]
+            jaw_l_y = lm[JAW_LEFT][1]
+            jaw_r_y = lm[JAW_RIGHT][1]
+            jaw_avg = (jaw_l_y + jaw_r_y) / 2
+            ratio = (chin_y - jaw_avg) / (chin_y - forehead_y + 1e-6) * 100
+            return _normalize(ratio, 5, 25)
+        except:
+            return 50.0
+    
+    def _face_shape(self, lm, w, h):
+        try:
+            face_w = abs(lm[JAW_RIGHT][0] - lm[JAW_LEFT][0])
+            face_h = abs(lm[CHIN][1] - lm[FOREHEAD][1])
+            ratio = face_w / (face_h + 1e-6)
+            return _normalize(ratio, 0.6, 1.4)
+        except:
+            return 50.0
+    
+    def _facial_fullness(self, lm, w, h):
+        try:
+            cheek_w = abs(lm[RIGHT_CHEEK][0] - lm[LEFT_CHEEK][0])
+            jaw_w = abs(lm[JAW_RIGHT][0] - lm[JAW_LEFT][0])
+            ratio = cheek_w / (jaw_w + 1e-6)
+            return _normalize(ratio, 0.8, 1.2)
+        except:
+            return 50.0
+    
+    def _skin_tone(self, img_bgr, lm):
+        try:
+            x = max(0, lm[LEFT_CHEEK][0] - 20)
+            y = max(0, lm[LEFT_CHEEK][1] - 20)
+            w = min(img_bgr.shape[1] - x, 40)
+            h = min(img_bgr.shape[0] - y, 40)
+            if w <= 0 or h <= 0:
+                return 50.0
+            cheek_region = img_bgr[y:y+h, x:x+w]
+            if cheek_region.size == 0:
+                return 50.0
+            lab = cv2.cvtColor(cheek_region, cv2.COLOR_BGR2LAB)
+            L = lab[:, :, 0].mean()
+            return _normalize(L, 40, 200)
+        except:
+            return 50.0
+    
+    def _lip_color(self, img_bgr, lm):
+        try:
+            lip_pts = np.array([[lm[i][0], lm[i][1]] for i in UPPER_LIP], dtype=np.int32)
+            mask = np.zeros(img_bgr.shape[:2], dtype=np.uint8)
+            cv2.fillPoly(mask, [lip_pts], 255)
+            hsv = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2HSV)
+            mean_sat = cv2.mean(hsv[:, :, 1], mask=mask)[0]
+            return _normalize(mean_sat, 20, 200)
+        except:
+            return 50.0
+    
+    def _hair_color(self, img_bgr, lm, h):
+        try:
+            forehead_y = lm[FOREHEAD][1]
+            x1 = max(0, lm[JAW_LEFT][0])
+            x2 = min(img_bgr.shape[1], lm[JAW_RIGHT][0])
+            y1 = max(0, forehead_y - int(h * 0.15))
+            y2 = forehead_y
+            if x1 >= x2 or y1 >= y2:
+                return 50.0
+            hair_region = img_bgr[y1:y2, x1:x2]
+            if hair_region.size == 0:
+                return 50.0
+            gray = cv2.cvtColor(hair_region, cv2.COLOR_BGR2GRAY)
+            return _normalize(gray.mean(), 20, 220)
+        except:
+            return 50.0
+    
+    def _forehead_lines(self, img_bgr, lm):
+        try:
+            fy = lm[FOREHEAD][1]
+            x1 = max(0, lm[JAW_LEFT][0])
+            x2 = min(img_bgr.shape[1], lm[JAW_RIGHT][0])
+            y1 = max(0, fy - 30)
+            y2 = min(img_bgr.shape[0], fy + 10)
+            if x1 >= x2 or y1 >= y2:
+                return 20.0
+            region = img_bgr[y1:y2, x1:x2]
+            if region.size == 0:
+                return 20.0
+            gray = cv2.cvtColor(region, cv2.COLOR_BGR2GRAY)
+            edges = cv2.Canny(gray, 50, 150)
+            density = edges.sum() / (edges.size + 1e-6) * 100
+            return _normalize(density, 0, 15)
+        except:
+            return 20.0
+    
+    def _beard_fullness(self, img_bgr, lm):
+        try:
+            chin_y = lm[CHIN][1]
+            jaw_y = (lm[JAW_LEFT][1] + lm[JAW_RIGHT][1]) // 2
+            x1 = max(0, lm[JAW_LEFT][0])
+            x2 = min(img_bgr.shape[1], lm[JAW_RIGHT][0])
+            y1 = jaw_y
+            y2 = min(img_bgr.shape[0], chin_y)
+            if x1 >= x2 or y1 >= y2:
+                return 10.0
+            region = img_bgr[y1:y2, x1:x2]
+            if region.size == 0:
+                return 10.0
+            hsv = cv2.cvtColor(region, cv2.COLOR_BGR2HSV)
+            dark_mask = hsv[:, :, 2] < 80
+            coverage = dark_mask.mean() * 100
+            return _normalize(coverage, 0, 60)
+        except:
+            return 10.0
+    
+    def _hair_type(self, img_bgr, lm, h):
+        try:
+            forehead_y = lm[FOREHEAD][1]
+            x1 = max(0, lm[JAW_LEFT][0])
+            x2 = min(img_bgr.shape[1], lm[JAW_RIGHT][0])
+            y1 = max(0, forehead_y - int(h * 0.18))
+            y2 = forehead_y
+            if x1 >= x2 or y1 >= y2:
+                return 40.0
+            hair_region = img_bgr[y1:y2, x1:x2]
+            if hair_region.size == 0:
+                return 40.0
+            gray = cv2.cvtColor(hair_region, cv2.COLOR_BGR2GRAY)
+            laplacian_var = cv2.Laplacian(gray, cv2.CV_64F).var()
+            return _normalize(laplacian_var, 10, 800)
+        except:
+            return 40.0
+    
+    def _ear_visibility(self, img_bgr, lm, w):
+        try:
+            left_ear_x = lm[LEFT_EAR][0]
+            right_ear_x = lm[RIGHT_EAR][0]
+            vis_score = (left_ear_x / w + (1 - right_ear_x / w)) / 2 * 100
+            return float(np.clip(vis_score, 0, 100))
+        except:
+            return 50.0
+    
+    def _smile_intensity(self, lm, w):
+        try:
+            mouth_left = lm[61]
+            mouth_right = lm[291]
+            mouth_top = lm[13]
+            mouth_bot = lm[14]
+            mouth_w = dist.euclidean(mouth_left, mouth_right)
+            mouth_h = dist.euclidean(mouth_top, mouth_bot)
+            ratio = mouth_w / (mouth_h + 1e-6)
+            return _normalize(ratio, 1, 8)
+        except:
+            return 50.0
+    
+    def _perceived_confidence(self, lm, h):
+        try:
+            nose_tip = lm[NOSE_TIP]
+            chin = lm[CHIN]
+            forehead = lm[FOREHEAD]
+            face_center_y = (forehead[1] + chin[1]) / 2
+            offset = (nose_tip[1] - face_center_y) / h * 100
+            return _normalize(abs(offset), 0, 15)
+        except:
+            return 50.0
+    
+    def _perceived_kindness(self, lm):
+        try:
+            lip_w = dist.euclidean(lm[61], lm[291])
+            jaw_w = dist.euclidean(lm[JAW_LEFT], lm[JAW_RIGHT])
+            ratio = lip_w / (jaw_w + 1e-6) * 100
+            return _normalize(ratio, 20, 50)
+        except:
+            return 50.0
+    
+    def _eyebrow_arch(self, lm, h):
+        try:
+            lb_pts = [lm[i] for i in LEFT_EYEBROW]
+            min_y = min(p[1] for p in lb_pts)
+            max_y = max(p[1] for p in lb_pts)
+            arch = (max_y - min_y) / h * 100
+            return _normalize(arch, 0.2, 2.5)
+        except:
+            return 50.0
+    
+    def _eye_spacing(self, lm, w):
+        try:
+            l_center = lm[LEFT_EYE[0]][0]
+            r_center = lm[RIGHT_EYE[3]][0]
+            spacing = abs(r_center - l_center) / w * 100
+            return _normalize(spacing, 20, 50)
+        except:
+            return 50.0
+    
+    def _jaw_definition(self, lm, w):
+        try:
+            jaw_w = abs(lm[JAW_RIGHT][0] - lm[JAW_LEFT][0])
+            cheek_w = abs(lm[RIGHT_CHEEK][0] - lm[LEFT_CHEEK][0])
+            ratio = jaw_w / (cheek_w + 1e-6)
+            return _normalize(ratio, 0.8, 1.2)
+        except:
+            return 50.0

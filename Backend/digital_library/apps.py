@@ -1,0 +1,8 @@
+# digital_library/apps.py
+
+from django.apps import AppConfig
+
+class DigitalLibraryConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'digital_library'
+    verbose_name = 'Digital Library'
