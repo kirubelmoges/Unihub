@@ -1,7 +1,10 @@
 node_modules/
-.env
-logs/
+3.*venv/
+venv/
 __pycache__/
 *.pyc
+.env
+logs/
 .DS_Store
-venv/
+dist/
+build/
