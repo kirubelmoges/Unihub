@@ -25,7 +25,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "unihub",
         "USER": "root",
-        "PASSWORD": "Primefor1996!",
+        "PASSWORD": "your password",
         "HOST": "127.0.0.1",
         "PORT": "3306",
         "OPTIONS": {
