@@ -180,16 +180,16 @@ CORS_ALLOW_HEADERS = [
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 CSRF_COOKIE_NAME = 'csrftoken'
 CSRF_HEADER_NAME = "HTTP_X_CSRFTOKEN"
-SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
+SESSION_COOKIE_SECURE = True  
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_COOKIE_AGE = 3600 
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = 'Lax'
 CSRF_COOKIE_SAMESITE = 'Lax'
-CSRF_COOKIE_HTTPONLY = False
-CSRF_USE_SESSIONS = False
-CSRF_COOKIE_HTTPONLY = False  
-CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_HTTPONLY = True
+CSRF_USE_SESSIONS = True
+CSRF_COOKIE_HTTPONLY = True 
+CSRF_COOKIE_SECURE = True
 
 
 
@@ -207,7 +207,7 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.FormParser',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
